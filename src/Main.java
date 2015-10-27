@@ -1,10 +1,14 @@
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
-        int n = 10;
+        int n = 11;
+        //Mais que isso não roda na minha maquina.
+        //Erro: Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        //          at java.util.ArrayList.clone(ArrayList.java:334)
+        //          at BackTracker.BackTrack(BackTracker.java:33)
+        //          at BackTracker.BackTrack(BackTracker.java:40)X12
         for(int i=2;i<n;i++) {
             BackTracker backTracker = new BackTracker(i);
             ArrayList<ArrayList<Integer>> t = backTracker.Run();
@@ -19,11 +23,8 @@ public class Main {
     }
 
     public static boolean IsCountValid(ArrayList<ArrayList<Integer>> l,int n){
-        double total = Factorial(n)*CalcD(n);
-
-        if(total<l.size()+0.1&&total>l.size()-0.1)
-            return true;
-        else return false;
+        double total = Factorial(n)* DivisionsSum(n);
+        return total<l.size()+0.1&&total>l.size()-0.1;
     }
 
     public static int Factorial(int n){
@@ -34,7 +35,7 @@ public class Main {
         return f;
     }
 
-    public static double CalcD(int n){
+    public static double DivisionsSum(int n){
         double result = 1;
         for(int i=1;i<=n;i++){
             int signal;
